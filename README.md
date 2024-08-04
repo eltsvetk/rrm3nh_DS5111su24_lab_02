@@ -121,24 +121,56 @@ We will stop at 3NF since it provides "the biggest bang for our buck" according 
 
 ### INDEXES
 
+Note that we should be adding indexes only on items that would be searched the most. Recall back to the problem statement. Students, faculty, and staff are the audience and problem is being able to easily pull up the course and curriculum information. Therefore, we are most likely to search for Course information and should build an index that makes it easier and quicker to find Course information, according to the problem statement. 
 
+### CONSTRAINTS
 
+Our database will have domain constraints and check constraints. Domain constraints restrict the values that you can enter into a field. In other words, preventing from holding a value that does not match its data type. Check constraints evaluates a Boolean expression to see if certain data should be allowed.
+
+EXAMPLES of constraints that will be enforced (not all are listed, but are shown to convey the understanding of the requirement):
+
+Instructor table:
+* domain constraint: Entering an ID for instructor_id that is not an integer
+* domain constraint: Entering a name that is not a string
+* check constraint: If the is_employed expression evaluates to true, the data is allowed. This prevents us from assigning an invalid/unemployed instructor to a course. 
+
+Course table:
+* domain constraint: Entering an ID for course_id that is not an integer
+* domain constraint: Entering a name that is not a string
+* check constraint: If the is_active expression evaluates to true, the data is allowed.
+
+Outcomes table:
+* domain constraint: Entering an ID for outcome_id that is not an integer
+* domain constraint: Entering a name that is not a string
+* check constraint: If the is_active expression evaluates to true, the data is allowed.
+
+Terms table:
+* domain constraint: Entering an ID for term_id that is not an integer
+
+We also will have a primary key constraint:
+* No two records will have identical values for the fields that define the table's primary key. This will ensure that no two records are exact duplicates. 
+
+For the Class table, we also have a foreign key constraint:
+* Requires that a record's values in one or more fields in one table (the referencing table) must match the values in another table
+
+Lastly, we have a constraint for entering a learning outcome under the table Outcomes for a course not offered by the UVA School of Data Science.
+
+### NEW USE CASE
+
+Could our database also support the UVA SDS Residential MSDS Program?
+
+UVA MSDS program has always marketed to its online students that they will receive the same education (i.e. course offerings and instructors) as the residential program. Therefore, the course offerings, instructors, and learning outcomes should not change as online students receive the same education as the residential students. 
+
+However, if this was not the case, then we would have to add an attribute for online vs residential and apply it to the tables Course, Instructor, and Outcomes. We would have to add this to the database structure (ER flow diagram and Relational Model) and acquire the data.  
 
 ---
 
 Confirmation that above process description includes:
 * ER flow diagram and Relational model is included
 * tables we plan to build
-* For each table, we've included the primary key and/or the foreign key and which ones we will us
+* For each table, we've included the primary key and/or the foreign key and which ones we will use
 * Learning outcomes, courses, and instructors have a flag for if currently active or not
 * Database design passed 1NF, 2NF, and 3NF
-
-6) (1 PT) Are there indexes that you should build? Explain your reasoning.
-
-7) (2 PTS) Are there constraints to enforce? Explain your answer and strategy.
-For example, these actions should not be allowed:
-- Entering learning objectives for a course not offered by the School of Data Science
-- Assigning an invalid instructor to a course
-
-
-9) (2 PTS) Suppose you were asked if your database could also support the UVA SDS Residential MSDS Program. Explain any issues that might arise, changes to the database structure (schema), and new data that might be needed. Note you won’t actually need to support this use case for the project.
+* Explained that we should build an index for course information as it will be searched the most, according to the problem statement.
+* Added examples of constraints that we will enforce
+* Explained the new use case of applying Residential MSDS program to the database
