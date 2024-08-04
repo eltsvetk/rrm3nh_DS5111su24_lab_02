@@ -1,5 +1,8 @@
 ## Database Design and Build - Part 1
 
+
+![ER_flow](https://github.com/eltsvetk/rrm3nh_DS5111su24_lab_02/blob/main/entity_relationship.png)
+
 ```mermaid
 erDiagram
 COURSE ||--|{ CLASS: assigned
