@@ -22,7 +22,7 @@ Hence, the ternary relationship. We also have a relationship between Course and 
 
 Again, this was done to conceptually understand the relationships. Now, we have to convert this ternary relationship into a Relational Model. The following blog helped us in executing that: https://vertabelo.com/blog/ternary-relationship/. 
    
-![ER_flow](https://github.com/eltsvetk/rrm3nh_DS5111su24_lab_02/blob/main/entity_relationship.png)
+![ER_flow](https://github.com/eltsvetk/rrm3nh_DS5111su24_lab_02/blob/main/ER_flowdiagram.png)
 
 We used mermaid js to create our Relational Model. 
 
@@ -50,14 +50,7 @@ TABLES AND KEYS:
     * From Course-Class: course_id
     * From Term-Class: term_id
   5) Outcomes table derived from the Outcomes entity
-     *
-   
-  
-  
- 
-
-
-
+     *with attribute outcome_id as the primary key
 
 ```mermaid
 erDiagram
@@ -70,8 +63,8 @@ COURSE ||--|{ CLASS: assigned
     }
 OUTCOME }|--|| COURSE: has
  OUTCOME {
-        int course_id FK
-        int term_id FK
+        int outcome_id PK
+        int coure_id
         string description
         boolean is_active
     }
