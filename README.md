@@ -1,7 +1,63 @@
 ## Database Design and Build - Part 1
 
 
+PROBLEM STATEMENT:
+There have been several questions from students, faculty, and staff on the topic of courses and curriculum in the UVA SDS Online MSDS Program.
+
+SOLUTION:
+Construct a database containing some information about the courses. In particular, these things must be in the database:
+1) Learning Outcomes (LOs) for each course
+   * This data is provided. LOs capture what students should be able to do after taking a course (e.g., design and build a MySQL database).
+   * LOs vary in terms of detail (they were written by different instructors).
+
+2) The instructors assigned to teach the different courses for each term in 2021 (Spring, Summer, Fall)
+
+PROCESS:
+
+First, to identify what tables we need to build and the relationships between them, we started with an ER flow diagram using classical Chen notation. This was best to represent and understand the ternary relationship between Course (information about the course subject), Instructor, and the Term.
+* An instructor can teach one or more courses (subjects) in one or more terms
+* A term can have multiple instances of the same course and the same course can be taught in multiple terms
+
+Hence, the ternary relationship. We also have a relationship between Course and learning Outcomes where there are many outcomes for a course but only one course per outcome. Therefore, we have a many to one relationship between Outcomes and Course. 
+
+Again, this was done to conceptually understand the relationships. Now, we have to convert this ternary relationship into a Relational Model. The following blog helped us in executing that: https://vertabelo.com/blog/ternary-relationship/. 
+   
 ![ER_flow](https://github.com/eltsvetk/rrm3nh_DS5111su24_lab_02/blob/main/entity_relationship.png)
+
+We used mermaid js to create our Relational Model. 
+
+In order to create a Relational Model that has a ternary relationship, we replace the diamond shape relationship with its own entity, then we relate it to the existing three entities (Course, Instructor, Term). We call the new entity an assigned "Class" with its assigned Course (subject), Instructor, and Term. 
+
+1) An instructor can teach multiple classes but each class has only one instructor
+   * One to many relationship between Instructor and Class
+2) A course/subject can be taught in multiple classes but each class focuses on one course/subject
+   * One to many relationship between Course and Class
+3) A term can include multiple classes and multiple terms can have the same class (same instructor and same course)
+   * Many to many relationship between Term and Class
+
+Therefore, we derive the following tables and assigned a primary key or foreign key as needed:
+
+TABLES AND KEYS:
+ 1) Instructor table derived from the Instructor entity
+    * with the attribute instructor_id as the primary key
+ 2) Course table derived from the Course entity
+    * with the attribute course_id as the primary key
+ 3) Term table derived from the Term entity
+    * with the attribute term_id as the primary key
+ 4) Class table drived from the Class entity
+    * 3 attributes are BOTH the primary key and foreign key
+    * From Instructor-Class: instructor_id
+    * From Course-Class: course_id
+    * From Term-Class: term_id
+  5) Outcomes table derived from the Outcomes entity
+     *
+   
+  
+  
+ 
+
+
+
 
 ```mermaid
 erDiagram
@@ -27,7 +83,7 @@ OUTCOME }|--|| COURSE: has
         boolean is_employed
     }
 
-TERM ||--|{ CLASS: assigned
+TERM }|--|{ CLASS: assigned
 TERM {
         int term_id PK
         string term_name
