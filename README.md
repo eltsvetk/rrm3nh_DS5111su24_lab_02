@@ -50,7 +50,7 @@ TABLES AND KEYS:
     * From Course-Class: course_id
     * From Term-Class: term_id
   5) Outcomes table derived from the Outcomes entity
-     *with attribute outcome_id as the primary key
+    * with attribute outcome_id as the primary key
 
 ```mermaid
 erDiagram
